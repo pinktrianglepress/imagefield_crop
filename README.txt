@@ -1,4 +1,3 @@
-$Id$
 
 = Overview =
 imagefield_crop provides a widget for cropping an image after upload.
