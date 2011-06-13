@@ -1,7 +1,4 @@
-/* $Id: imagefield_crop.js,v 1.1.2.3.2.10 2009/11/11 08:12:53 yhager Exp $ */
 (function ($) {
-
-
 Drupal.behaviors.imagefield_crop = {
   attach: function (context, settings) {
     // wait till 'fadeIn' effect ends (defined in filefield_widget.inc)
@@ -49,12 +46,12 @@ Drupal.behaviors.imagefield_crop = {
             });
           },
           onSelect: function(c) {
-            $('.preview-existing', widget).css({display: 'none'});
-            $(".edit-image-crop-x", widget).val(c.x);
-            $(".edit-image-crop-y", widget).val(c.y);
-            if (c.w) $(".edit-image-crop-width", widget).val(c.w);
-            if (c.h) $(".edit-image-crop-height", widget).val(c.h);
-            $(".edit-image-crop-changed", widget).val(1);
+            $(widget).siblings('.preview-existing').css({display: 'none'});
+            $(widget).siblings(".edit-image-crop-x").val(c.x);
+            $(widget).siblings(".edit-image-crop-y").val(c.y);
+            if (c.w) $(widget).siblings(".edit-image-crop-width").val(c.w);
+            if (c.h) $(widget).siblings(".edit-image-crop-height").val(c.h);
+            $(widget).siblings(".edit-image-crop-changed").val(1);
           },
           aspectRatio: settings.imagefield_crop[id].box.ratio,
           boxWidth: settings.imagefield_crop[id].box.box_width,
@@ -64,10 +61,10 @@ Drupal.behaviors.imagefield_crop = {
            * Setting the select here calls onChange event, and we lose the original image visibility
           */
           setSelect: [
-            parseInt($(".edit-image-crop-x", widget).val()),
-            parseInt($(".edit-image-crop-y", widget).val()),
-            parseInt($(".edit-image-crop-width", widget).val()) + parseInt($(".edit-image-crop-x", widget).val()),
-            parseInt($(".edit-image-crop-height", widget).val()) + parseInt($(".edit-image-crop-y", widget).val())
+            parseInt($(widget).siblings(".edit-image-crop-x").val()),
+            parseInt($(widget).siblings(".edit-image-crop-y").val()),
+            parseInt($(widget).siblings(".edit-image-crop-width").val()) + parseInt($(widget).siblings(".edit-image-crop-x").val()),
+            parseInt($(widget).siblings(".edit-image-crop-height").val()) + parseInt($(widget).siblings(".edit-image-crop-y").val())
           ]
         });
       });
