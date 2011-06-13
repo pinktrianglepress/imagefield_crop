@@ -354,6 +354,8 @@ function imagefield_crop_widget_value(&$element, &$input, $form_state) {
 		  unset($crop['changed']);
 		  $crop_info[$src->fid] = $crop;
 		  variable_set('imagefield_crop_info', $crop_info);
+      // Remove cached versions of the cropped image.
+      image_path_flush($src->uri);
 		}
     
   }
