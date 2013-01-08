@@ -375,6 +375,47 @@ function imagefield_crop_widget_delete($form, &$form_state) {
 	}
 }
 
+/**
+ * Implements hook_entity_presave().
+ */
+function imagefield_crop_entity_presave($entity, $type) {
+  // HACK - until http://drupal.org/node/1448124 is addressed, the iamgesize
+  // is stored in the field instance and we have no way of cleanly altering
+  // it correctly, so do it here.
+  $fields = field_info_instances($type, isset($entity->type) ? $entity->type : NULL);
+  if (isset($entity->type)) {
+    _imagefield_crop_entity_presave($entity, $fields);
+  }
+  else {
+    foreach ($fields as $bundle) {
+      _imagefield_crop_entity_presave($entity, $bundle);
+    }
+  }
+}
+
+/**
+ * Helper function to reset the width and height of the imagefield to
+ * those of the cropped image.
+ */
+function _imagefield_crop_entity_presave($entity, $fields) {
+  foreach ($fields as $field_name => $field) {
+    if ($field['widget']['type'] != 'imagefield_crop_widget') {
+      continue;
+    }
+    if (!isset($entity->{$field_name})) {
+      continue;
+    }
+    foreach ($entity->{$field_name}[$entity->language] as $delta => $imagefield) {
+      $file = file_load($imagefield['fid']);
+      $info = image_get_info($file->uri);
+      if (is_array($info)) {
+        $entity->{$field_name}[$entity->language][$delta]['width'] = $info['width'];
+        $entity->{$field_name}[$entity->language][$delta]['height'] = $info['height'];
+      }
+    }
+  }
+}
+
 /*********************/
 /* Theming functions */
 /*********************/
