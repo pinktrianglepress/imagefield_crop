@@ -1,4 +1,10 @@
 (function ($) {
+/**
+ * @file
+ * Imagefield_crop module js
+ *
+ * JS for cropping image widget
+ */
 Drupal.behaviors.imagefield_crop = {
   attach: function (context, settings) {
     // wait till 'fadeIn' effect ends (defined in filefield_widget.inc)
