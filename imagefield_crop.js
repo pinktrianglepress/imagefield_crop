@@ -50,6 +50,13 @@ Drupal.behaviors.imagefield_crop = {
               marginTop: '-' + Math.round(ry * c.y) + 'px',
               display: 'block'
             });
+            // Crop image even if user has left image untouched.
+            $(widget).siblings('.preview-existing').css({display: 'none'});
+            $(widget).siblings(".edit-image-crop-x").val(c.x);
+            $(widget).siblings(".edit-image-crop-y").val(c.y);
+            if (c.w) $(widget).siblings(".edit-image-crop-width").val(c.w);
+            if (c.h) $(widget).siblings(".edit-image-crop-height").val(c.h);
+            $(widget).siblings(".edit-image-crop-changed").val(1);
           },
           onSelect: function(c) {
             $(widget).siblings('.preview-existing').css({display: 'none'});
