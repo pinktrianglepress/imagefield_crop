@@ -411,9 +411,12 @@ function _imagefield_crop_entity_presave($entity, $fields) {
     if (!isset($entity->{$field_name})) {
       continue;
     }
-    // Get the language key for the field,
-    // if fields language key is not $entity->language set $lang to 'und'
-    $lang = isset($entity->{$field_name}[$entity->language]) ? $entity->language : 'und';
+    // Get the language key for the field, if fields language key is not
+    // $entity->language set $lang to 'und'.
+    $lang = LANGUAGE_NONE;
+    if (isset($entity->language) && isset($entity->{$field_name}[$entity->language])) {
+      $lang = $entity->language;
+    }
     foreach ($entity->{$field_name}[$lang] as $delta => $imagefield) {
       $file = file_load($imagefield['fid']);
       $info = image_get_info($file->uri);
