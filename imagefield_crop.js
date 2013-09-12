@@ -76,8 +76,8 @@ Drupal.behaviors.imagefield_crop = {
           setSelect: [
             parseInt($(widget).siblings(".edit-image-crop-x").val()),
             parseInt($(widget).siblings(".edit-image-crop-y").val()),
-            parseInt($(widget).siblings(".edit-image-crop-width").val()) + parseInt($(widget).siblings(".edit-image-crop-x").val()),
-            parseInt($(widget).siblings(".edit-image-crop-height").val()) + parseInt($(widget).siblings(".edit-image-crop-y").val())
+            parseInt($(this).width()),
+            parseInt(0)
           ]
         });
       });
