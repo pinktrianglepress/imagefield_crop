@@ -254,11 +254,15 @@ function imagefield_crop_widget_process($element, &$form_state, $form) {
 }
 
 function _imagefield_add_cropinfo_fields($fid = NULL) {
+  
+  $image = file_load($fid);
+  $image_size = getimagesize(drupal_realpath($image->uri));
+  
   $defaults = array(
     'x'       => 0,
     'y'       => 0,
-    'width'   => 50,
-    'height'  => 50,
+    'width'   => $image_size[0],
+    'height'  => 0,
     'changed' => 0,
   );
   if ($fid) {
