@@ -257,12 +257,13 @@ function _imagefield_add_cropinfo_fields($fid = NULL) {
   
   $image = file_load($fid);
   $image_size = getimagesize(drupal_realpath($image->uri));
+  dsm($image_size);
   
   $defaults = array(
     'x'       => 0,
     'y'       => 0,
     'width'   => $image_size[0],
-    'height'  => 0,
+    'height'  => $image_size[1],
     'changed' => 0,
   );
   if ($fid) {
